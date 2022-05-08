@@ -13,6 +13,6 @@ class RequestSerializer(serializers.ModelSerializer):
                   'reason', 'reason_name', 'approver', 'approver_name',
                   'detail_reason', 'supervisor', 'supervisor_name',
                   'inform_to', 'inform_to_name', 'expected_approve', 'time')
-        read_only_fields = ('id', 'owner', 'owner_name', 'partial_day_display', 'duration',
+        read_only_fields = ('id', 'owner', 'owner_name', 'duration',
                             'request_type_name', 'reason_name', 'approver_name',
                             'supervisor_name', 'inform_to_name')
