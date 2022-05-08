@@ -6,17 +6,17 @@ from django.utils import timezone
 
 
 class RequestType(models.Model):
-    request_type = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.request_type
+        return self.name
 
 
 class Reason(models.Model):
-    reason = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.reason
+        return self.name
 
 
 class Request(models.Model):
@@ -28,10 +28,20 @@ class Request(models.Model):
 
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='request_owner')
+
+    @property
+    def owner_name(self):
+        return self.owner.username
+
     created_on = models.DateTimeField(default=timezone.now)
     slug = models.SlugField(max_length=255, unique_for_date='created_on')
     request_type = models.ForeignKey(
         RequestType, on_delete=models.PROTECT, default=1)
+
+    @property
+    def request_type_name(self):
+        return self.request_type.name
+
     start_date = models.DateField()
     end_date = models.DateField()
     partial_day = models.CharField(
@@ -45,13 +55,33 @@ class Request(models.Model):
 
     reason = models.ForeignKey(
         Reason, on_delete=models.PROTECT, default=1)
+
+    @property
+    def reason_name(self):
+        return self.reason.name
+
     approver = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='request_approver')
+
+    @property
+    def approver_name(self):
+        return self.approver.username
+
     detail_reason = models.TextField(blank=True, null=True)
     supervisor = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='request_supervisor')
+
+    @property
+    def supervisor_name(self):
+        return self.supervisor.username
+
     inform_to = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='request_inform_to', blank=True, null=True)
+
+    @property
+    def inform_to_name(self):
+        return self.inform_to.username
+
     expected_approve = models.DateField(blank=True, null=True)
     time = models.TimeField(blank=True, null=True)
     objects = models.Manager()
