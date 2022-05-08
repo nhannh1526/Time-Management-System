@@ -21,6 +21,9 @@ class RequestList(generics.ListCreateAPIView):
     queryset = Request.objects.all()
     serializer_class = RequestSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class RequestDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
     permission_classes = [PostUserWritePermission]
