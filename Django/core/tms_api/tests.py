@@ -17,8 +17,8 @@ class RequestTests(APITestCase):
 
     def test_create_account(self):
         self.test_request_type = RequestType.objects.create(
-            request_type='Work from home (WFH_Covid19)')
-        self.test_reason = Reason.objects.create(reason='Other')
+            name='Work from home (WFH_Covid19)')
+        self.test_reason = Reason.objects.create(name='Other')
 
         self.testuser1 = User.objects.create_user(
             username='user01', password='Admin@123')
@@ -43,8 +43,8 @@ class RequestTests(APITestCase):
         client = APIClient()
 
         self.test_request_type = RequestType.objects.create(
-            request_type='Work from home (WFH_Covid19)')
-        test_reason = Reason.objects.create(reason='Other')
+            name='Work from home (WFH_Covid19)')
+        test_reason = Reason.objects.create(name='Other')
         self.testuser1 = User.objects.create_user(
             username='user01', password='Admin@123')
         self.testuser2 = User.objects.create_user(
