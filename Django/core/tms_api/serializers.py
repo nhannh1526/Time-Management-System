@@ -3,7 +3,7 @@ from tms.models import Request
 
 
 class RequestSerializer(serializers.ModelSerializer):
-    partial_day_display = serializers.CharField(
+    partial_day_display = serializers.ReadOnlyField(
         source='get_partial_day_display')
 
     class Meta:
